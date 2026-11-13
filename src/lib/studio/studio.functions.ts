@@ -16,6 +16,7 @@ export const generateScript = createServerFn({ method: "POST" })
         seconds: z.number().min(20).max(60),
         style: z.string().min(1).max(60),
         language: z.string().min(1).max(40),
+        sceneCount: z.number().int().min(1).max(15).optional(),
       })
       .refine((v) => (v.mode === "create" ? !!v.prompt?.trim() : !!v.transcript?.trim()), "Prompt or transcript is required")
       .parse(d),

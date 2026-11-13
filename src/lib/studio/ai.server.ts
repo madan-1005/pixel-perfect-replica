@@ -50,9 +50,10 @@ export async function writeScript(opts: {
   seconds: number;
   style: string;
   language: string;
+  sceneCount?: number;
 }): Promise<ScriptResult> {
   if (!process.env["LOVABLE_API_KEY"]) throw new Error("AI provider is not configured: LOVABLE_API_KEY is missing on the server.");
-  const sceneCount = Math.max(3, Math.min(10, Math.round(opts.seconds / 6)));
+  const sceneCount = opts.sceneCount ?? Math.max(3, Math.min(10, Math.round(opts.seconds / 6)));
   const wordsBudget = Math.round(opts.seconds * 2.3);
   const instructions =
     opts.mode === "create"
