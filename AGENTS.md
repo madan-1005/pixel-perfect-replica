@@ -28,3 +28,9 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- TypeScript strict flags noUncheckedIndexedAccess, exactOptionalPropertyTypes and noImplicitReturns are off: the media/editor code relies on indexed arrays and optional patches, and these flags added noise without catching real bugs.
+- All AI calls (script, TTS, transcription, video clips, music) live in src/lib/studio/ai.server.ts and are reached only via authenticated server functions in studio.functions.ts.
+- Final video compositing/rendering runs in the browser (canvas + MediaRecorder, src/lib/studio/render.ts) because the server runtime cannot run FFmpeg.
+- Media lives in the private "media" bucket under <userId>/<projectId>/...; project state is one jsonb `data` column on public.projects.
