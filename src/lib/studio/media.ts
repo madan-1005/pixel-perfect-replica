@@ -47,7 +47,7 @@ export async function uploadFile(path: string, file: Blob, contentType?: string)
 }
 
 function normalize(row: Record<string, unknown>): ProjectRow {
-  return { ...(row as unknown as ProjectRow), data: defaultData((row.data ?? {}) as Partial<ProjectData>) };
+  return { ...(row as unknown as ProjectRow), data: defaultData((row["data"] ?? {}) as Partial<ProjectData>) };
 }
 
 export async function listProjects(): Promise<ProjectRow[]> {

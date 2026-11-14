@@ -31,7 +31,7 @@ export const Route = createFileRoute("/_authenticated/editor/$id")({
   head: () => ({ meta: [{ title: "Video Editor — Reel Studio" }, { name: "description", content: "Edit scenes, script, voice, music and render your video." }, { property: "og:title", content: "Video Editor — Reel Studio" }, { property: "og:description", content: "Edit and render your AI video." }] }),
   loader: ({ context, params }) => context.queryClient.ensureQueryData(projectQuery(params.id)),
   component: Editor,
-  errorComponent: ({ error }) => <div className="p-8"><p className="text-destructive">{error.message}</p><Link to="/projects" className="text-primary">Back to projects</Link></div>,
+  errorComponent: ({ error }) => <div className="p-8"><p className="text-destructive">{(error as Error).message}</p><Link to="/projects" className="text-primary">Back to projects</Link></div>,
 });
 
 function Editor() {
@@ -343,7 +343,7 @@ function Editor() {
                     <span className="timecode">#{i + 1} {s.keep ? fmtTime(offsets.get(s.id) ?? 0) : "cut"}</span>
                     {s.source === "ai" ? <Sparkles className={cn("size-3", s.clipPath ? "text-primary" : "")} /> : <Film className="size-3" />}
                   </div>
-                  <p className="mt-1 line-clamp-2 text-xs">{s.narrationText ?? s.text || <em className="text-muted-foreground">no text</em>}</p>
+                  <p className="mt-1 line-clamp-2 text-xs">{(s.narrationText ?? s.text) || <em className="text-muted-foreground">no text</em>}</p>
                   <div className="mt-1 flex gap-1">
                     {s.clipStatus === "generating" && <Loader2 className="size-3 animate-spin text-primary" />}
                     {s.clipStatus === "failed" && <span className="text-[10px] text-destructive">clip failed</span>}
