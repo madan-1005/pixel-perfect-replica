@@ -15,7 +15,12 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedCreateRouteImport } from './routes/_authenticated/create'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedDownloadsRouteImport } from './routes/_authenticated/downloads'
 import { Route as AuthenticatedImportRouteImport } from './routes/_authenticated/import'
+import { Route as AuthenticatedProjectsRouteImport } from './routes/_authenticated/projects'
+import { Route as AuthenticatedVoiceRouteImport } from './routes/_authenticated/voice'
+import { Route as AuthenticatedEditorIndexRouteImport } from './routes/_authenticated/editor.index'
+import { Route as AuthenticatedEditorIdRouteImport } from './routes/_authenticated/editor.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,9 +51,35 @@ const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedDownloadsRoute = AuthenticatedDownloadsRouteImport.update({
+  id: '/downloads',
+  path: '/downloads',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedImportRoute = AuthenticatedImportRouteImport.update({
   id: '/import',
   path: '/import',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProjectsRoute = AuthenticatedProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedVoiceRoute = AuthenticatedVoiceRouteImport.update({
+  id: '/voice',
+  path: '/voice',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedEditorIndexRoute =
+  AuthenticatedEditorIndexRouteImport.update({
+    id: '/editor/',
+    path: '/editor/',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedEditorIdRoute = AuthenticatedEditorIdRouteImport.update({
+  id: '/editor/$id',
+  path: '/editor/$id',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
@@ -58,7 +89,12 @@ export interface FileRoutesByFullPath {
   '/reset-password': typeof ResetPasswordRoute
   '/create': typeof AuthenticatedCreateRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/downloads': typeof AuthenticatedDownloadsRoute
   '/import': typeof AuthenticatedImportRoute
+  '/projects': typeof AuthenticatedProjectsRoute
+  '/voice': typeof AuthenticatedVoiceRoute
+  '/editor/$id': typeof AuthenticatedEditorIdRoute
+  '/editor/': typeof AuthenticatedEditorIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -66,7 +102,12 @@ export interface FileRoutesByTo {
   '/reset-password': typeof ResetPasswordRoute
   '/create': typeof AuthenticatedCreateRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/downloads': typeof AuthenticatedDownloadsRoute
   '/import': typeof AuthenticatedImportRoute
+  '/projects': typeof AuthenticatedProjectsRoute
+  '/voice': typeof AuthenticatedVoiceRoute
+  '/editor/$id': typeof AuthenticatedEditorIdRoute
+  '/editor': typeof AuthenticatedEditorIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -76,14 +117,40 @@ export interface FileRoutesById {
   '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/create': typeof AuthenticatedCreateRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/downloads': typeof AuthenticatedDownloadsRoute
   '/_authenticated/import': typeof AuthenticatedImportRoute
+  '/_authenticated/projects': typeof AuthenticatedProjectsRoute
+  '/_authenticated/voice': typeof AuthenticatedVoiceRoute
+  '/_authenticated/editor/$id': typeof AuthenticatedEditorIdRoute
+  '/_authenticated/editor/': typeof AuthenticatedEditorIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/auth' | '/reset-password' | '/create' | '/dashboard' | '/import'
+    | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/create'
+    | '/dashboard'
+    | '/downloads'
+    | '/import'
+    | '/projects'
+    | '/voice'
+    | '/editor/$id'
+    | '/editor/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/auth' | '/reset-password' | '/create' | '/dashboard' | '/import'
+  to:
+    | '/'
+    | '/auth'
+    | '/reset-password'
+    | '/create'
+    | '/dashboard'
+    | '/downloads'
+    | '/import'
+    | '/projects'
+    | '/voice'
+    | '/editor/$id'
+    | '/editor'
   id:
     | '__root__'
     | '/'
@@ -92,7 +159,12 @@ export interface FileRouteTypes {
     | '/reset-password'
     | '/_authenticated/create'
     | '/_authenticated/dashboard'
+    | '/_authenticated/downloads'
     | '/_authenticated/import'
+    | '/_authenticated/projects'
+    | '/_authenticated/voice'
+    | '/_authenticated/editor/$id'
+    | '/_authenticated/editor/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -146,11 +218,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedDashboardRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/downloads': {
+      id: '/_authenticated/downloads'
+      path: '/downloads'
+      fullPath: '/downloads'
+      preLoaderRoute: typeof AuthenticatedDownloadsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/import': {
       id: '/_authenticated/import'
       path: '/import'
       fullPath: '/import'
       preLoaderRoute: typeof AuthenticatedImportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/projects': {
+      id: '/_authenticated/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof AuthenticatedProjectsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/voice': {
+      id: '/_authenticated/voice'
+      path: '/voice'
+      fullPath: '/voice'
+      preLoaderRoute: typeof AuthenticatedVoiceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/editor/': {
+      id: '/_authenticated/editor/'
+      path: '/editor'
+      fullPath: '/editor/'
+      preLoaderRoute: typeof AuthenticatedEditorIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/editor/$id': {
+      id: '/_authenticated/editor/$id'
+      path: '/editor/$id'
+      fullPath: '/editor/$id'
+      preLoaderRoute: typeof AuthenticatedEditorIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
   }
@@ -159,13 +266,23 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedCreateRoute: typeof AuthenticatedCreateRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedDownloadsRoute: typeof AuthenticatedDownloadsRoute
   AuthenticatedImportRoute: typeof AuthenticatedImportRoute
+  AuthenticatedProjectsRoute: typeof AuthenticatedProjectsRoute
+  AuthenticatedVoiceRoute: typeof AuthenticatedVoiceRoute
+  AuthenticatedEditorIdRoute: typeof AuthenticatedEditorIdRoute
+  AuthenticatedEditorIndexRoute: typeof AuthenticatedEditorIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCreateRoute: AuthenticatedCreateRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedDownloadsRoute: AuthenticatedDownloadsRoute,
   AuthenticatedImportRoute: AuthenticatedImportRoute,
+  AuthenticatedProjectsRoute: AuthenticatedProjectsRoute,
+  AuthenticatedVoiceRoute: AuthenticatedVoiceRoute,
+  AuthenticatedEditorIdRoute: AuthenticatedEditorIdRoute,
+  AuthenticatedEditorIndexRoute: AuthenticatedEditorIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
