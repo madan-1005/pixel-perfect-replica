@@ -21,7 +21,7 @@ export const Route = createFileRoute("/_authenticated/voice")({
 function Voice() {
   const speak = generateVoice;
   const [text, setText] = useState("");
-  const [voice, setVoice] = useState("Kore");
+  const [voice, setVoice] = useState("af_heart");
   const [gender, setGender] = useState<"All" | "Female" | "Male">("All");
   const [language, setLanguage] = useState("English");
   const [speed, setSpeed] = useState(1);

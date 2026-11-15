@@ -108,7 +108,7 @@ function Editor() {
   async function genAllClips() {
     const todo = keptScenes(data).filter((s) => s.source === "ai" && !s.clipPath && s.clipStatus !== "generating");
     if (!todo.length) return toast.info("All AI scenes already have clips.");
-    toast.info(`Generating ${todo.length} clips — about 30–90 seconds each.`);
+    toast.info(`Finding ${todo.length} free stock clips…`);
     for (const s of todo) await genClip(s);
   }
 
