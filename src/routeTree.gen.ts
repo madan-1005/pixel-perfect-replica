@@ -11,14 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as AuthenticatedCreateRouteImport } from './routes/_authenticated/create'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedDownloadsRouteImport } from './routes/_authenticated/downloads'
 import { Route as AuthenticatedImportRouteImport } from './routes/_authenticated/import'
 import { Route as AuthenticatedProjectsRouteImport } from './routes/_authenticated/projects'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
 import { Route as AuthenticatedVoiceRouteImport } from './routes/_authenticated/voice'
+import { Route as ApiFetchVideoRouteImport } from './routes/api/fetch-video'
+import { Route as ApiStockClipRouteImport } from './routes/api/stock-clip'
 import { Route as AuthenticatedEditorIndexRouteImport } from './routes/_authenticated/editor.index'
 import { Route as AuthenticatedEditorIdRouteImport } from './routes/_authenticated/editor.$id'
 
@@ -29,16 +30,6 @@ const IndexRoute = IndexRouteImport.update({
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResetPasswordRoute = ResetPasswordRouteImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedCreateRoute = AuthenticatedCreateRouteImport.update({
@@ -66,10 +57,25 @@ const AuthenticatedProjectsRoute = AuthenticatedProjectsRouteImport.update({
   path: '/projects',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedVoiceRoute = AuthenticatedVoiceRouteImport.update({
   id: '/voice',
   path: '/voice',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const ApiFetchVideoRoute = ApiFetchVideoRouteImport.update({
+  id: '/api/fetch-video',
+  path: '/api/fetch-video',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiStockClipRoute = ApiStockClipRouteImport.update({
+  id: '/api/stock-clip',
+  path: '/api/stock-clip',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedEditorIndexRoute =
   AuthenticatedEditorIndexRouteImport.update({
@@ -85,27 +91,29 @@ const AuthenticatedEditorIdRoute = AuthenticatedEditorIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
-  '/reset-password': typeof ResetPasswordRoute
   '/create': typeof AuthenticatedCreateRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/downloads': typeof AuthenticatedDownloadsRoute
   '/import': typeof AuthenticatedImportRoute
   '/projects': typeof AuthenticatedProjectsRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/voice': typeof AuthenticatedVoiceRoute
+  '/api/fetch-video': typeof ApiFetchVideoRoute
+  '/api/stock-clip': typeof ApiStockClipRoute
   '/editor/$id': typeof AuthenticatedEditorIdRoute
   '/editor/': typeof AuthenticatedEditorIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/auth': typeof AuthRoute
-  '/reset-password': typeof ResetPasswordRoute
   '/create': typeof AuthenticatedCreateRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/downloads': typeof AuthenticatedDownloadsRoute
   '/import': typeof AuthenticatedImportRoute
   '/projects': typeof AuthenticatedProjectsRoute
+  '/settings': typeof AuthenticatedSettingsRoute
   '/voice': typeof AuthenticatedVoiceRoute
+  '/api/fetch-video': typeof ApiFetchVideoRoute
+  '/api/stock-clip': typeof ApiStockClipRoute
   '/editor/$id': typeof AuthenticatedEditorIdRoute
   '/editor': typeof AuthenticatedEditorIndexRoute
 }
@@ -113,14 +121,15 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/auth': typeof AuthRoute
-  '/reset-password': typeof ResetPasswordRoute
   '/_authenticated/create': typeof AuthenticatedCreateRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/downloads': typeof AuthenticatedDownloadsRoute
   '/_authenticated/import': typeof AuthenticatedImportRoute
   '/_authenticated/projects': typeof AuthenticatedProjectsRoute
+  '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/_authenticated/voice': typeof AuthenticatedVoiceRoute
+  '/api/fetch-video': typeof ApiFetchVideoRoute
+  '/api/stock-clip': typeof ApiStockClipRoute
   '/_authenticated/editor/$id': typeof AuthenticatedEditorIdRoute
   '/_authenticated/editor/': typeof AuthenticatedEditorIndexRoute
 }
@@ -128,41 +137,44 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/auth'
-    | '/reset-password'
     | '/create'
     | '/dashboard'
     | '/downloads'
     | '/import'
     | '/projects'
+    | '/settings'
     | '/voice'
+    | '/api/fetch-video'
+    | '/api/stock-clip'
     | '/editor/$id'
     | '/editor/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/auth'
-    | '/reset-password'
     | '/create'
     | '/dashboard'
     | '/downloads'
     | '/import'
     | '/projects'
+    | '/settings'
     | '/voice'
+    | '/api/fetch-video'
+    | '/api/stock-clip'
     | '/editor/$id'
     | '/editor'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
-    | '/auth'
-    | '/reset-password'
     | '/_authenticated/create'
     | '/_authenticated/dashboard'
     | '/_authenticated/downloads'
     | '/_authenticated/import'
     | '/_authenticated/projects'
+    | '/_authenticated/settings'
     | '/_authenticated/voice'
+    | '/api/fetch-video'
+    | '/api/stock-clip'
     | '/_authenticated/editor/$id'
     | '/_authenticated/editor/'
   fileRoutesById: FileRoutesById
@@ -170,8 +182,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  AuthRoute: typeof AuthRoute
-  ResetPasswordRoute: typeof ResetPasswordRoute
+  ApiFetchVideoRoute: typeof ApiFetchVideoRoute
+  ApiStockClipRoute: typeof ApiStockClipRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -188,20 +200,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/create': {
@@ -239,12 +237,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProjectsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/voice': {
       id: '/_authenticated/voice'
       path: '/voice'
       fullPath: '/voice'
       preLoaderRoute: typeof AuthenticatedVoiceRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/fetch-video': {
+      id: '/api/fetch-video'
+      path: '/api/fetch-video'
+      fullPath: '/api/fetch-video'
+      preLoaderRoute: typeof ApiFetchVideoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/stock-clip': {
+      id: '/api/stock-clip'
+      path: '/api/stock-clip'
+      fullPath: '/api/stock-clip'
+      preLoaderRoute: typeof ApiStockClipRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/editor/': {
       id: '/_authenticated/editor/'
@@ -269,6 +288,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedDownloadsRoute: typeof AuthenticatedDownloadsRoute
   AuthenticatedImportRoute: typeof AuthenticatedImportRoute
   AuthenticatedProjectsRoute: typeof AuthenticatedProjectsRoute
+  AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedVoiceRoute: typeof AuthenticatedVoiceRoute
   AuthenticatedEditorIdRoute: typeof AuthenticatedEditorIdRoute
   AuthenticatedEditorIndexRoute: typeof AuthenticatedEditorIndexRoute
@@ -280,6 +300,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedDownloadsRoute: AuthenticatedDownloadsRoute,
   AuthenticatedImportRoute: AuthenticatedImportRoute,
   AuthenticatedProjectsRoute: AuthenticatedProjectsRoute,
+  AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedVoiceRoute: AuthenticatedVoiceRoute,
   AuthenticatedEditorIdRoute: AuthenticatedEditorIdRoute,
   AuthenticatedEditorIndexRoute: AuthenticatedEditorIndexRoute,
@@ -291,8 +312,8 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  AuthRoute: AuthRoute,
-  ResetPasswordRoute: ResetPasswordRoute,
+  ApiFetchVideoRoute: ApiFetchVideoRoute,
+  ApiStockClipRoute: ApiStockClipRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

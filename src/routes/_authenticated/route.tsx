@@ -1,16 +1,9 @@
-import { createFileRoute, Link, Outlet, redirect, useNavigate, useRouterState } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
-import { Clapperboard, Download, Film, FolderOpen, LayoutDashboard, LogOut, Mic, Scissors, Upload, Wand2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+import { createFileRoute, Link, Outlet, useRouterState } from "@tanstack/react-router";
+import { Clapperboard, Download, Film, FolderOpen, LayoutDashboard, Mic, Settings, Scissors, Upload, Wand2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/_authenticated")({
   ssr: false,
-  beforeLoad: async () => {
-    const { data } = await supabase.auth.getUser();
-    if (!data.user) throw redirect({ to: "/auth" });
-    return { user: data.user };
-  },
   component: Shell,
 });
 
@@ -22,19 +15,11 @@ const NAV = [
   { to: "/voice", label: "AI Voice", icon: Mic },
   { to: "/projects", label: "My Projects", icon: FolderOpen },
   { to: "/downloads", label: "Downloads", icon: Download },
+  { to: "/settings", label: "Settings", icon: Settings },
 ] as const;
 
 function Shell() {
-  const { user } = Route.useRouteContext();
   const path = useRouterState({ select: (s) => s.location.pathname });
-  const qc = useQueryClient();
-  const navigate = useNavigate();
-  async function signOut() {
-    await qc.cancelQueries();
-    qc.clear();
-    await supabase.auth.signOut();
-    navigate({ to: "/auth", replace: true });
-  }
   return (
     <div className="flex min-h-screen">
       <aside className="sticky top-0 hidden h-screen w-60 shrink-0 flex-col border-r border-sidebar-border bg-sidebar p-4 md:flex">
@@ -53,12 +38,7 @@ function Shell() {
             );
           })}
         </nav>
-        <div className="border-t border-sidebar-border pt-4">
-          <p className="truncate px-2 text-xs text-muted-foreground">{user.email}</p>
-          <button onClick={signOut} className="mt-2 flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-sidebar-foreground/75 hover:bg-sidebar-accent">
-            <LogOut className="size-4" /> Sign out
-          </button>
-        </div>
+        <p className="border-t border-sidebar-border px-2 pt-4 text-xs text-muted-foreground">Free · saved on this computer</p>
       </aside>
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="flex items-center gap-2 overflow-x-auto border-b px-3 py-2 md:hidden">

@@ -30,14 +30,14 @@ function Landing() {
           <span className="grid size-8 place-items-center rounded-lg bg-gradient-primary text-primary-foreground"><Clapperboard className="size-4" /></span>
           Reel Studio
         </span>
-        <Button asChild variant="ghost"><Link to="/auth">Sign in</Link></Button>
+        <Button asChild variant="ghost"><Link to="/dashboard">Open studio</Link></Button>
       </header>
       <section className="mx-auto max-w-6xl px-6 pt-12">
         <p className="timecode text-xs uppercase tracking-widest text-primary"><span className="mr-2 inline-block size-2 rounded-full bg-rec animate-rec" />00:00:20 — 00:01:00</p>
         <h1 className="mt-4 max-w-3xl text-5xl font-semibold leading-[1.05] tracking-tight md:text-6xl">Your next short video, directed by AI and finished by you.</h1>
         <p className="mt-5 max-w-xl text-lg text-muted-foreground">Write a prompt or bring a clip. Reel Studio writes the script, generates scenes, adds a voice, music and subtitles — then hands you the timeline.</p>
         <div className="mt-8 flex gap-3">
-          <Button asChild size="lg" variant="hero"><Link to="/auth">Start creating</Link></Button>
+          <Button asChild size="lg" variant="hero"><Link to="/dashboard">Start creating</Link></Button>
         </div>
         <img src={hero} alt="Glowing video timeline with scene frames" width={1600} height={912} className="mt-14 w-full rounded-2xl border" />
       </section>

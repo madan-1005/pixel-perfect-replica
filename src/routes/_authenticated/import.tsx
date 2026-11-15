@@ -1,5 +1,4 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Link2, Loader2, Upload } from "lucide-react";
@@ -9,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { importFromUrl, transcribeChunk } from "@/lib/studio/studio.functions";
+import { importFromUrl, transcribeChunk } from "@/lib/studio/local-ai";
 import { createProject, errMsg, projectPath, signedUrl, updateProject, uploadFile } from "@/lib/studio/media";
 import { decodeMono, evenSegments, hasSpeech, mediaDuration, segment, wavBase64 } from "@/lib/studio/audio";
 import { defaultData, LANGUAGES, uid, type Aspect, type Scene } from "@/lib/studio/types";
@@ -21,8 +20,8 @@ export const Route = createFileRoute("/_authenticated/import")({
 
 function ImportPage() {
   const navigate = useNavigate();
-  const fromUrl = useServerFn(importFromUrl);
-  const transcribe = useServerFn(transcribeChunk);
+  const fromUrl = importFromUrl;
+  const transcribe = transcribeChunk;
   const [url, setUrl] = useState("");
   const [language, setLanguage] = useState("English");
   const [stage, setStage] = useState<string | null>(null);

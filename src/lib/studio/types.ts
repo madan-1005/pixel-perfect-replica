@@ -78,14 +78,14 @@ export const LANGUAGES = [
 ] as const;
 
 export const VOICES = [
-  { id: "Kore", label: "Kore", gender: "Female", tone: "Firm, clear" },
-  { id: "Aoede", label: "Aoede", gender: "Female", tone: "Breezy, warm" },
-  { id: "Leda", label: "Leda", gender: "Female", tone: "Youthful" },
-  { id: "Zephyr", label: "Zephyr", gender: "Female", tone: "Bright" },
-  { id: "Puck", label: "Puck", gender: "Male", tone: "Upbeat" },
-  { id: "Charon", label: "Charon", gender: "Male", tone: "Informative" },
-  { id: "Fenrir", label: "Fenrir", gender: "Male", tone: "Excitable" },
-  { id: "Orus", label: "Orus", gender: "Male", tone: "Deep, firm" },
+  { id: "af_heart", label: "Heart", gender: "Female", tone: "Warm (US)" },
+  { id: "af_bella", label: "Bella", gender: "Female", tone: "Bright (US)" },
+  { id: "af_nicole", label: "Nicole", gender: "Female", tone: "Soft (US)" },
+  { id: "bf_emma", label: "Emma", gender: "Female", tone: "Clear (UK)" },
+  { id: "am_michael", label: "Michael", gender: "Male", tone: "Steady (US)" },
+  { id: "am_fenrir", label: "Fenrir", gender: "Male", tone: "Energetic (US)" },
+  { id: "am_puck", label: "Puck", gender: "Male", tone: "Upbeat (US)" },
+  { id: "bm_george", label: "George", gender: "Male", tone: "Deep (UK)" },
 ] as const;
 
 export const MIN_SECONDS = 20;
@@ -97,7 +97,7 @@ export function defaultData(partial: Partial<ProjectData> = {}): ProjectData {
     aspect: "landscape",
     style: "Cinematic",
     language: "English",
-    voice: "Kore",
+    voice: "af_heart",
     speed: 1,
     scenes: [],
     originalVolume: 1,

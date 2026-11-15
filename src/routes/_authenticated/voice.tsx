@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Download, Loader2, Mic, Play } from "lucide-react";
@@ -9,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { generateVoice } from "@/lib/studio/studio.functions";
+import { generateVoice } from "@/lib/studio/local-ai";
 import { currentUserId, errMsg, signedUrl } from "@/lib/studio/media";
 import { LANGUAGES, VOICES } from "@/lib/studio/types";
 import { cn } from "@/lib/utils";
@@ -20,9 +19,9 @@ export const Route = createFileRoute("/_authenticated/voice")({
 });
 
 function Voice() {
-  const speak = useServerFn(generateVoice);
+  const speak = generateVoice;
   const [text, setText] = useState("");
-  const [voice, setVoice] = useState("Kore");
+  const [voice, setVoice] = useState("af_heart");
   const [gender, setGender] = useState<"All" | "Female" | "Male">("All");
   const [language, setLanguage] = useState("English");
   const [speed, setSpeed] = useState(1);
@@ -37,7 +36,7 @@ function Voice() {
     try {
       const path = `${await currentUserId()}/voice/${preview ? `preview-${voice}` : `voice-${Date.now()}`}.wav`;
       const r = await speak({ data: { text: t, voice, language, path } });
-      setUrl(await signedUrl(r.path) + `&t=${Date.now()}`);
+      setUrl(await signedUrl(r.path));
       setTimeout(() => audio.current?.play(), 100);
     } catch (e) { toast.error(errMsg(e)); } finally { setBusy(null); }
   }
