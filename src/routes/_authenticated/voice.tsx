@@ -36,7 +36,7 @@ function Voice() {
     try {
       const path = `${await currentUserId()}/voice/${preview ? `preview-${voice}` : `voice-${Date.now()}`}.wav`;
       const r = await speak({ data: { text: t, voice, language, path } });
-      setUrl(await signedUrl(r.path) + `&t=${Date.now()}`);
+      setUrl(await signedUrl(r.path));
       setTimeout(() => audio.current?.play(), 100);
     } catch (e) { toast.error(errMsg(e)); } finally { setBusy(null); }
   }

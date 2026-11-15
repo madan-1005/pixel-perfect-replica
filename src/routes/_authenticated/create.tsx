@@ -25,7 +25,7 @@ function Create() {
   const [aspect, setAspect] = useState<Aspect>("landscape");
   const [style, setStyle] = useState<string>("Cinematic");
   const [language, setLanguage] = useState<string>("English");
-  const [voice, setVoice] = useState<string>("Kore");
+  const [voice, setVoice] = useState<string>("af_heart");
   const [busy, setBusy] = useState(false);
 
   async function go() {
