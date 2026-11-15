@@ -1,5 +1,4 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Loader2, Wand2 } from "lucide-react";
@@ -9,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { generateScript } from "@/lib/studio/studio.functions";
+import { generateScript } from "@/lib/studio/local-ai";
 import { createProject, errMsg } from "@/lib/studio/media";
 import { defaultData, LANGUAGES, STYLES, VOICES, uid, type Aspect } from "@/lib/studio/types";
 
@@ -20,7 +19,7 @@ export const Route = createFileRoute("/_authenticated/create")({
 
 function Create() {
   const navigate = useNavigate();
-  const script = useServerFn(generateScript);
+  const script = generateScript;
   const [prompt, setPrompt] = useState("");
   const [seconds, setSeconds] = useState(30);
   const [aspect, setAspect] = useState<Aspect>("landscape");

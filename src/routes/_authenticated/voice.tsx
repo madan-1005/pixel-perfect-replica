@@ -1,5 +1,4 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Download, Loader2, Mic, Play } from "lucide-react";
@@ -9,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { generateVoice } from "@/lib/studio/studio.functions";
+import { generateVoice } from "@/lib/studio/local-ai";
 import { currentUserId, errMsg, signedUrl } from "@/lib/studio/media";
 import { LANGUAGES, VOICES } from "@/lib/studio/types";
 import { cn } from "@/lib/utils";
@@ -20,7 +19,7 @@ export const Route = createFileRoute("/_authenticated/voice")({
 });
 
 function Voice() {
-  const speak = useServerFn(generateVoice);
+  const speak = generateVoice;
   const [text, setText] = useState("");
   const [voice, setVoice] = useState("Kore");
   const [gender, setGender] = useState<"All" | "Female" | "Male">("All");

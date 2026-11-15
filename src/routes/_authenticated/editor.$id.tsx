@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery, useQueryClient } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import {
@@ -20,7 +19,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { cn } from "@/lib/utils";
 import { projectQuery } from "@/lib/studio/queries";
 import { errMsg, projectPath, signedUrl, updateProject, uploadFile } from "@/lib/studio/media";
-import { generateMusicTrack, generateScript, generateVoice, pollSceneClip, startSceneClip } from "@/lib/studio/studio.functions";
+import { generateMusicTrack, generateScript, generateVoice, pollSceneClip, startSceneClip } from "@/lib/studio/local-ai";
 import { renderPlan, type PlanScene, type RenderPlan } from "@/lib/studio/render";
 import {
   aspectSize, fmtTime, keptScenes, LANGUAGES, MAX_SECONDS, MIN_SECONDS, sceneLength, STYLES, totalLength, uid, validateLength, VOICES,
@@ -66,8 +65,8 @@ function Editor() {
   const size = aspectSize(data.aspect);
 
   // ---------- AI clip generation ----------
-  const startClip = useServerFn(startSceneClip);
-  const pollClip = useServerFn(pollSceneClip);
+  const startClip = startSceneClip;
+  const pollClip = pollSceneClip;
   const polling = useRef(new Set<string>());
   const poll = useCallback(async (s: Scene) => {
     if (!s.clipJobId || polling.current.has(s.id)) return;
@@ -114,7 +113,7 @@ function Editor() {
   }
 
   // ---------- Narration ----------
-  const voiceFn = useServerFn(generateVoice);
+  const voiceFn = generateVoice;
   const [narrBusy, setNarrBusy] = useState(false);
   const voiceText = (s: Scene) => (s.narrationText ?? (s.source === "ai" && project.kind !== "import" ? s.text : s.source === "ai" ? s.text : "")).trim();
   async function genNarration(only?: Scene) {
@@ -138,7 +137,7 @@ function Editor() {
   }
 
   // ---------- Improve ----------
-  const scriptFn = useServerFn(generateScript);
+  const scriptFn = generateScript;
   const [improving, setImproving] = useState(false);
   const [draftOpen, setDraftOpen] = useState(false);
   async function improve() {
@@ -179,7 +178,7 @@ function Editor() {
   }
 
   // ---------- Music ----------
-  const musicFn = useServerFn(generateMusicTrack);
+  const musicFn = generateMusicTrack;
   const [musicBusy, setMusicBusy] = useState(false);
   async function genMusic() {
     const prompt = data.musicPrompt?.trim() || `${data.style} background score`;
