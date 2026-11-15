@@ -436,9 +436,8 @@ function Editor() {
             </div>
             <div className="space-y-3 border-t pt-4">
               <p className="flex items-center gap-2 font-medium"><Music className="size-4 text-primary" /> Background music</p>
-              <Input value={data.musicPrompt ?? ""} onChange={(e) => setData((d) => ({ ...d, musicPrompt: e.target.value }))} placeholder="Warm acoustic guitar, hopeful" />
+              <p className="text-xs text-muted-foreground">Upload a music file (free tracks: pixabay.com/music).</p>
               <div className="flex gap-2">
-                <Button size="sm" variant="secondary" onClick={genMusic} disabled={musicBusy}>{musicBusy ? <Loader2 className="animate-spin" /> : <Sparkles />} Generate</Button>
                 <label className="inline-flex h-8 cursor-pointer items-center rounded-md border px-3 text-xs">Upload<input type="file" accept="audio/*" className="hidden" onChange={(e) => uploadMusic(e.target.files?.[0])} /></label>
                 {data.musicPath && <Button size="sm" variant="ghost" onClick={() => setData((d) => ({ ...d, musicPath: undefined }))}>Remove</Button>}
               </div>
