@@ -31,6 +31,6 @@ use the editor.
 
 ## Project rules
 - TypeScript strict flags noUncheckedIndexedAccess, exactOptionalPropertyTypes and noImplicitReturns are off: the media/editor code relies on indexed arrays and optional patches, and these flags added noise without catching real bugs.
-- All AI calls (script, TTS, transcription, video clips, music) live in src/lib/studio/ai.server.ts and are reached only via authenticated server functions in studio.functions.ts.
+- No paid services: all AI is free/local in src/lib/studio/local-ai.ts (Ollama for scripts, Kokoro TTS and Whisper in-browser, Pexels stock clips via /api/stock-clip); the user wants zero credits or money to run the app.
 - Final video compositing/rendering runs in the browser (canvas + MediaRecorder, src/lib/studio/render.ts) because the server runtime cannot run FFmpeg.
-- Media lives in the private "media" bucket under <userId>/<projectId>/...; project state is one jsonb `data` column on public.projects.
+- No sign-in or cloud storage: projects and media live in browser IndexedDB (src/lib/studio/media.ts) so the app runs locally for free.
